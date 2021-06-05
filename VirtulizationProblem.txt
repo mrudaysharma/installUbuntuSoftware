@@ -1,0 +1,19 @@
+https://stackoverflow.com/questions/33552810/virtualbox-virtualization-is-enabled-but-not-working
+
+I seach for 2 days and nothing worked for me.. then i find the solution:
+
+The problem is in Windows 10... u need to disable Hyper-V Manager ...
+
+1) make sure in your BIOS cpu virtualization is enable.
+
+2) open your CMD as administrator
+
+3) in your desktop folder type bcdedit and look for hypervisorlaunchtype in the bottom ... if it is Auto or enable we need to disable it !!!!!!
+
+See this picture http://i.stack.imgur.com/m3XFi.png
+
+4) type in your cmd bcdedit /set hypervisorlaunchtype off
+
+5) Restart your OS and be happy !!!
+
+i know this is a old question ... but for everyone who have a similar problem i hope it helps !!
