@@ -10,7 +10,8 @@ printf "Installing Required Software in Ubuntu Environment \n
 7. Intellij \n
 8. Google Chrome \n
 9. Openshift \n
-10. Rancher \n"
+10. Rancher \n
+11. Minikube + kubectl\n"
 
 echo "Installin Java........"
 
@@ -76,12 +77,6 @@ id -nG
 
 echo "Docker Installed"
 
-echo "Installing Kubectl....."
-
-sudo snap install kubectl --classic
-kubectl version
-
-echo "Kubectl Installed"
 
 echo "Installing Helm....."
 
@@ -108,6 +103,45 @@ echo "Installing Rancher..."
 sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable
 
 echo "Rancher Installed"
+
+echo "Installing Minikube...."
+
+# Update system
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get upgrade
+
+# Download minikube
+
+wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+chmod +x minikube-linux-amd64
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube version
+
+# Install kubectl on Ubuntu / Debian
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version -o json 
+
+# Starting minikube
+minikube start
+
+# Minikube Basic operations
+kubectl cluster-info
+kubectl config view
+kubectl get nodes
+
+# Minicute Stop and Delete
+#minikube stop
+#minikube delete
+
+minikube addons list
+minikube dashboard
+minikube dashboard --url
 
 
 
